@@ -870,9 +870,10 @@
                 if (response.ok) {
                     alert(`🎉 ${data.message}`);
                     currentGems = data.gems;
-                    localStorage.setItem('stemArena_currentUser', username); // ✅ add this
+                    localStorage.setItem('stemArena_currentUser', username);
                     document.getElementById('gem-count').textContent = currentGems.toLocaleString();
-                    showSection('dashboard')
+                    loadUserData(data.user);
+                    showSection('dashboard');
                 }
                 else {
                     alert('❌ ' + data.detail);
