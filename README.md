@@ -38,3 +38,112 @@ For chatting with others using the framework:
 ## Contributing
 
 If you're interested in contributing to Tailwind CSS, please read our [contributing docs](https://github.com/tailwindcss/tailwindcss/blob/next/.github/CONTRIBUTING.md) **before submitting a pull request**.
+
+# STEM ARENA - Ultimate Competition Platform
+
+A modern coding competition platform with a sleek cyberpunk UI and powerful backend API.
+
+## 🚀 Quick Start
+
+### One-Command Launch
+```bash
+./start_stem_arena.sh
+```
+
+This will start both frontend and backend servers automatically.
+
+### Manual Setup
+
+#### 1. Backend Setup
+```bash
+cd backend
+pip install --break-system-packages -r requirements.txt
+export PATH=$PATH:/home/ubuntu/.local/bin
+uvicorn main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+#### 2. Frontend Setup
+```bash
+# Serve the frontend files
+python3 -m http.server 3000
+```
+
+## 🌐 Access URLs
+
+- **Frontend Application**: http://127.0.0.1:3000
+- **Backend API**: http://127.0.0.1:8000
+- **API Documentation**: http://127.0.0.1:8000/docs
+- **Alternative API Docs**: http://127.0.0.1:8000/redoc
+
+## 🔑 Test Credentials
+
+- **Username**: `testuser`
+- **Password**: `password123`
+
+## 🎯 Features
+
+### Frontend
+- ✅ Modern cyberpunk-themed UI
+- ✅ Real-time competition interface
+- ✅ User authentication system
+- ✅ Profile management
+- ✅ Competition submission system
+
+### Backend
+- ✅ FastAPI-powered REST API
+- ✅ User authentication endpoints
+- ✅ Competition management
+- ✅ Solution submission and scoring
+- ✅ Leaderboard system
+- ✅ CORS enabled for frontend communication
+
+## 📡 API Endpoints
+
+### Authentication
+- `POST /login` - User login
+- `POST /signup` - User registration
+
+### User Management
+- `GET /user/{user_id}` - Get user profile
+
+### Competitions
+- `GET /competition/task` - Get current competition task
+- `POST /competition/submit` - Submit solution
+
+### Additional
+- `GET /leaderboard` - Get top users
+- `GET /health` - Health check
+
+## 🏗️ Project Structure
+
+```
+├── backend/                 # FastAPI backend
+│   ├── main.py             # Main server file
+│   ├── requirements.txt    # Python dependencies
+│   ├── start_server.py     # Server startup script
+│   └── README.md          # Backend documentation
+├── pj.html                # Main frontend application
+├── competition.html       # Competition interface
+├── styles.css            # Custom styles
+├── index.css             # Tailwind CSS
+└── start_stem_arena.sh   # Full platform launcher
+```
+
+## 🔧 Development Notes
+
+- Backend uses in-memory storage (replace with database in production)
+- Passwords are stored in plain text (implement hashing in production)
+- JWT tokens are fake (implement real JWT in production)
+- CORS is open to all origins (restrict in production)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
