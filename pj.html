@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEM ARENA - Ultimate Competition Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen">
+    <!-- Cyber Navigation -->
+    <nav class="bg-black bg-opacity-80 backdrop-blur-md border-b border-cyan-500 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-3">
+                    <div class="text-4xl neon-text">⚡</div>
+                    <span class="text-2xl font-black neon-text">STEM ARENA</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="showSection('dashboard')" class="nav-btn text-lg font-semibold hover:text-cyan-400 transition-all duration-300 hover:scale-110">COMMAND CENTER</button>
+                    <button onclick="showSection('compete')" class="nav-btn text-lg font-semibold hover:text-pink-400 transition-all duration-300 hover:scale-110">BATTLE ZONE</button>
+                    <button onclick="showSection('level-test')" class="nav-btn text-lg font-semibold hover:text-purple-400 transition-all duration-300 hover:scale-110">AI ASSESSMENT</button>
+                    <button onclick="showSection('topics')" class="nav-btn text-lg font-semibold hover:text-green-400 transition-all duration-300 hover:scale-110">KNOWLEDGE BASE</button>
+                    <button onclick="showSection('profile')" class="nav-btn text-lg font-semibold hover:text-yellow-400 transition-all duration-300 hover:scale-110">PROFILE</button>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Gems Display -->
+                    <div class="flex items-center space-x-2 bg-gradient-to-r from-purple-900 to-pink-900 px-4 py-2 rounded-full neon-border">
+                        <div class="text-2xl gem-sparkle">💎</div>
+                        <span class="font-bold text-lg" id="gem-count">1,247</span>
+                    </div>
+                    <!-- Level Badge -->
+                    <div class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-full text-sm font-bold neon-border">
+                        LEVEL 3 - WARRIOR
+                    </div>
+                    <!-- Profile Icon -->
+                    <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-full flex items-center justify-center text-2xl font-bold neon-border cursor-pointer" onclick="showSection('profile')">
+                        🚀
+                    </div>
+                    <!-- Logout Button -->
+                    <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-bold text-sm transition-all neon-border">
+                        LOGOUT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <div id="login" class="section max-w-md mx-auto px-4 py-16">
+        <div class="cyber-card rounded-xl p-8">
+            <div class="text-center mb-8">
+                <div class="text-6xl mb-4">⚡</div>
+                <h1 class="text-4xl font-black neon-text mb-2">ENTER THE ARENA</h1>
+                <p class="text-cyan-300">Access your warrior profile</p>
+            </div>
+            
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="mb-6">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">USERNAME</label>
+                    <input type="text" id="login-username" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Enter your warrior codename">
+                </div>
+                
+                <div class="mb-8">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">PASSWORD</label>
+                    <input type="password" id="login-password" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Enter your secret code">
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-red-600 to-pink-600 text-white py-4 rounded-lg font-black text-xl hover:from-red-700 hover:to-pink-700 transition-all transform hover:scale-105 neon-border mb-6">
+                    ENTER BATTLE
+                </button>
+            </form>
+            
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">New warrior?</p>
+                <button onclick="showSection('signup')" class="text-cyan-400 hover:text-cyan-300 font-semibold underline">
+                    CREATE WARRIOR PROFILE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Section -->
+    <div id="signup" class="section hidden max-w-2xl mx-auto px-4 py-16">
+        <div class="cyber-card rounded-xl p-8">
+            <div class="text-center mb-8">
+                <div class="text-6xl mb-4">🚀</div>
+                <h1 class="text-4xl font-black neon-text mb-2">JOIN THE ARENA</h1>
+                <p class="text-cyan-300">Create your warrior profile</p>
+            </div>
+            
+            <form id="signup-form" onsubmit="handleSignup(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-cyan-400 text-sm font-semibold mb-2">FIRST NAME</label>
+                        <input type="text" id="signup-firstname" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Your first name">
+                    </div>
+                    <div>
+                        <label class="block text-cyan-400 text-sm font-semibold mb-2">LAST NAME</label>
+                        <input type="text" id="signup-lastname" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Your last name">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">USERNAME</label>
+                    <input type="text" id="signup-username" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Choose your warrior codename">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">EMAIL</label>
+                    <input type="email" id="signup-email" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="your.email@gmail.com">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-cyan-400 text-sm font-semibold mb-2">LOCATION</label>
+                        <input type="text" id="signup-location" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="City, Country">
+                    </div>
+                    <div>
+                        <label class="block text-cyan-400 text-sm font-semibold mb-2">GRADE</label>
+                        <select id="signup-grade" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border">
+                            <option value="">Select Grade</option>
+                            <option value="9">9th Grade</option>
+                            <option value="10">10th Grade</option>
+                            <option value="11">11th Grade</option>
+                            <option value="12">12th Grade</option>
+                            <option value="college">College</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">BIRTHDAY</label>
+                    <input type="date" id="signup-birthday" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">PASSWORD</label>
+                    <input type="password" id="signup-password" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Create a strong password">
+                </div>
+                
+                <div class="mb-8">
+                    <label class="block text-cyan-400 text-sm font-semibold mb-2">CONFIRM PASSWORD</label>
+                    <input type="password" id="signup-confirm-password" required class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg text-white text-lg focus:border-pink-500 focus:outline-none neon-border" placeholder="Confirm your password">
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-black text-xl hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 neon-border mb-6">
+                    CREATE WARRIOR
+                </button>
+            </form>
+            
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">Already a warrior?</p>
+                <button onclick="showSection('login')" class="text-cyan-400 hover:text-cyan-300 font-semibold underline">
+                    ENTER EXISTING PROFILE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="section hidden max-w-7xl mx-auto px-4 py-8">
+        <div class="mb-8 text-center">
+            <h1 class="text-5xl font-black neon-text mb-4">COMMAND CENTER</h1>
+            <p class="text-xl text-cyan-300">Ready to dominate the STEM battlefield, WARRIOR? 🔥</p>
+        </div>
+
+        <!-- User Profile Dashboard -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Main Profile Card -->
+            <div class="lg:col-span-2 cyber-card rounded-xl p-8">
+                <div class="flex items-center space-x-6 mb-8">
+                    <div class="w-24 h-24 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-full flex items-center justify-center text-4xl neon-border">
+                        🚀
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black neon-text mb-2">ALEX_THUNDER</h2>
+                        <p class="text-xl text-cyan-300 font-semibold">Alexander Rodriguez</p>
+                        <div class="flex items-center space-x-4 mt-3">
+                            <span class="bg-gradient-to-r from-orange-500 to-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">LEVEL 3 - WARRIOR</span>
+                            <span class="text-cyan-400">🌍 New York, USA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Details Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center p-4 bg-gradient-to-br from-blue-900 to-blue-800 rounded-lg border border-blue-400">
+                        <div class="text-2xl mb-2">🎓</div>
+                        <p class="text-blue-300 text-sm font-semibold">GRADE</p>
+                        <p class="text-xl font-bold text-white">11th</p>
+                    </div>
+                    <div class="text-center p-4 bg-gradient-to-br from-green-900 to-green-800 rounded-lg border border-green-400">
+                        <div class="text-2xl mb-2">🏆</div>
+                        <p class="text-green-300 text-sm font-semibold">COMPETITIONS WON</p>
+                        <p class="text-xl font-bold text-white">47</p>
+                    </div>
+                    <div class="text-center p-4 bg-gradient-to-br from-purple-900 to-purple-800 rounded-lg border border-purple-400">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <p class="text-purple-300 text-sm font-semibold">POWER LEVEL</p>
+                        <p class="text-xl font-bold text-white">3/10</p>
+                    </div>
+                    <div class="text-center p-4 bg-gradient-to-br from-pink-900 to-pink-800 rounded-lg border border-pink-400">
+                        <div class="text-2xl mb-2">🎂</div>
+                        <p class="text-pink-300 text-sm font-semibold">BIRTHDAY</p>
+                        <p class="text-sm font-bold text-white">March 15, 2007</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level Progress Card -->
+            <div class="cyber-card rounded-xl p-8">
+                <h3 class="text-xl font-bold mb-6 neon-text text-center">POWER LEVEL PROGRESSION</h3>
+                
+                <!-- Level Visual -->
+                <div class="relative mb-6">
+                    <div class="w-32 h-32 mx-auto relative">
+                        <svg class="w-32 h-32 transform -rotate-90" viewBox="0 0 36 36">
+                            <path class="text-gray-700" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                            <path class="text-cyan-400" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-cyan-400">3</div>
+                                <div class="text-xs text-gray-400">of 10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Level Details -->
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">Current Rank:</span>
+                        <span class="text-cyan-400 font-semibold">#4 of 156</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">Next Level:</span>
+                        <span class="text-purple-400 font-semibold">Champion (Lv.4)</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-400">Progress:</span>
+                        <span class="text-green-400 font-semibold">30%</span>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-800 rounded-full h-3 mt-4 border border-cyan-500">
+                    <div class="energy-bar h-3 rounded-full" style="width: 30%"></div>
+                </div>
+                
+                <p class="text-xs text-center text-cyan-300 mt-4">3 more victories to advance!</p>
+            </div>
+        </div>
+
+        <!-- Power Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="cyber-card rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-cyan-400 text-sm font-semibold">VICTORIES</p>
+                        <p class="text-4xl font-black text-green-400">47</p>
+                    </div>
+                    <div class="text-5xl">🏆</div>
+                </div>
+                <div class="mt-3 text-xs text-green-300">+3 this week</div>
+            </div>
+            <div class="cyber-card rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-cyan-400 text-sm font-semibold">DOMINATION RATE</p>
+                        <p class="text-4xl font-black text-purple-400">73%</p>
+                    </div>
+                    <div class="text-5xl">⚡</div>
+                </div>
+                <div class="mt-3 text-xs text-purple-300">Unstoppable!</div>
+            </div>
+            <div class="cyber-card rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-cyan-400 text-sm font-semibold">ARENA RANK</p>
+                        <p class="text-4xl font-black text-orange-400">#4</p>
+                    </div>
+                    <div class="text-5xl">🎯</div>
+                </div>
+                <div class="mt-3 text-xs text-orange-300">Elite tier</div>
+            </div>
+            <div class="cyber-card rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-cyan-400 text-sm font-semibold">KILL STREAK</p>
+                        <p class="text-4xl font-black text-red-400">8</p>
+                    </div>
+                    <div class="text-5xl">🔥</div>
+                </div>
+                <div class="mt-3 text-xs text-red-300">ON FIRE!</div>
+            </div>
+        </div>
+
+        <!-- Power Level Progress -->
+        <div class="cyber-card rounded-xl p-8 mb-8 pulse-glow">
+            <h2 class="text-2xl font-bold mb-4 neon-text">POWER LEVEL PROGRESSION</h2>
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-lg text-cyan-300">Rank #4 of 156 WARRIORS</span>
+                <span class="text-lg text-pink-400 font-bold">3 ELIMINATIONS TO ASCEND!</span>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-6 mb-4 border border-cyan-500">
+                <div class="energy-bar h-6 rounded-full" style="width: 65%"></div>
+            </div>
+            <p class="text-cyan-300">Crush 3 more opponents to unlock LEVEL 4 - CHAMPION status!</p>
+        </div>
+
+        <!-- Battle History -->
+        <div class="cyber-card rounded-xl p-8">
+            <h2 class="text-2xl font-bold mb-6 neon-text">RECENT BATTLES</h2>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-6 bg-gradient-to-r from-green-900 to-green-800 rounded-lg border border-green-400">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+                        <div>
+                            <p class="font-bold text-xl">PHYSICS ANNIHILATION vs Sarah</p>
+                            <p class="text-green-300">2 hours ago • +50 gems earned</p>
+                        </div>
+                    </div>
+                    <div class="text-green-400 font-black text-2xl">VICTORY</div>
+                </div>
+                <div class="flex items-center justify-between p-6 bg-gradient-to-r from-green-900 to-green-800 rounded-lg border border-green-400">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+                        <div>
+                            <p class="font-bold text-xl">MATH MASSACRE vs Mike</p>
+                            <p class="text-green-300">5 hours ago • +45 gems earned</p>
+                        </div>
+                    </div>
+                    <div class="text-green-400 font-black text-2xl">VICTORY</div>
+                </div>
+                <div class="flex items-center justify-between p-6 bg-gradient-to-r from-red-900 to-red-800 rounded-lg border border-red-400">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-4 h-4 bg-red-400 rounded-full animate-pulse"></div>
+                        <div>
+                            <p class="font-bold text-xl">CHEMISTRY CLASH vs Emma</p>
+                            <p class="text-red-300">1 day ago • -20 gems lost</p>
+                        </div>
+                    </div>
+                    <div class="text-red-400 font-black text-2xl">DEFEAT</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Battle Zone Section -->
+    <div id="compete" class="section hidden max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-5xl font-black neon-text mb-8 text-center">BATTLE ZONE ⚔️</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Quick Battle -->
+            <div class="cyber-card rounded-xl p-8 text-center battle-ready">
+                <div class="text-6xl mb-6">⚡</div>
+                <h2 class="text-3xl font-black mb-4 text-white">INSTANT COMBAT</h2>
+                <p class="text-xl text-white mb-6">Find a worthy opponent NOW!</p>
+                <button onclick="findMatch()" class="w-full bg-gradient-to-r from-red-600 to-pink-600 text-white py-6 rounded-lg font-black text-xl hover:from-red-700 hover:to-pink-700 transition-all transform hover:scale-105 neon-border">
+                    ENGAGE ENEMY
+                </button>
+            </div>
+
+            <!-- Challenge Mode -->
+            <div class="cyber-card rounded-xl p-8 text-center">
+                <div class="text-6xl mb-6">🎯</div>
+                <h2 class="text-3xl font-black mb-4 neon-text">DIRECT CHALLENGE</h2>
+                <p class="text-xl text-cyan-300 mb-6">Call out a specific warrior</p>
+                <input type="text" placeholder="Enter warrior codename" class="w-full p-4 bg-black border-2 border-cyan-500 rounded-lg mb-6 text-white text-lg focus:border-pink-500 focus:outline-none">
+                <button class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-6 rounded-lg font-black text-xl hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 neon-border">
+                    ISSUE CHALLENGE
+                </button>
+            </div>
+        </div>
+
+        <!-- Active Warriors -->
+        <div class="cyber-card rounded-xl p-8">
+            <h2 class="text-2xl font-bold mb-6 neon-text">WARRIORS ONLINE (LEVEL 3)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border-2 border-transparent hover:border-cyan-400 transition-all cursor-pointer transform hover:scale-105" onclick="challengePlayer('Sarah')">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center text-2xl font-bold">🔥</div>
+                        <div>
+                            <p class="font-bold text-xl">SARAH</p>
+                            <p class="text-cyan-400">Domination: 68%</p>
+                            <p class="text-green-400">💎 892 gems</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border-2 border-transparent hover:border-cyan-400 transition-all cursor-pointer transform hover:scale-105" onclick="challengePlayer('Mike')">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-2xl font-bold">⚡</div>
+                        <div>
+                            <p class="font-bold text-xl">MIKE</p>
+                            <p class="text-cyan-400">Domination: 71%</p>
+                            <p class="text-green-400">💎 1,156 gems</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg border-2 border-transparent hover:border-cyan-400 transition-all cursor-pointer transform hover:scale-105" onclick="challengePlayer('Emma')">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-2xl font-bold">🚀</div>
+                        <div>
+                            <p class="font-bold text-xl">EMMA</p>
+                            <p class="text-cyan-400">Domination: 75%</p>
+                            <p class="text-green-400">💎 1,334 gems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assessment Section -->
+    <div id="level-test" class="section hidden max-w-4xl mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-5xl font-black neon-text mb-4">AI NEURAL ASSESSMENT 🤖</h1>
+            <p class="text-xl text-cyan-300">Let the AI probe your mind and determine your combat readiness</p>
+        </div>
+
+        <div class="cyber-card rounded-xl p-8">
+            <div id="test-intro" class="text-center">
+                <div class="text-8xl mb-8 pulse-glow">🧠</div>
+                <h2 class="text-3xl font-bold mb-6 neon-text">NEURAL SCAN INITIATED</h2>
+                <p class="text-xl text-cyan-300 mb-8">The AI will analyze your cognitive patterns through adaptive challenges. Prepare for mental combat!</p>
+                <button onclick="startLevelTest()" class="bg-gradient-to-r from-red-600 to-purple-600 text-white px-12 py-6 rounded-lg font-black text-xl hover:from-red-700 hover:to-purple-700 transition-all transform hover:scale-110 neon-border">
+                    BEGIN ASSESSMENT
+                </button>
+            </div>
+
+            <div id="test-question" class="hidden">
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-lg text-cyan-400 font-semibold">NEURAL PROBE <span id="question-num">1</span> of 10</span>
+                        <span class="text-lg text-red-400 font-semibold warning-flash">TIME: <span id="timer">60</span>s</span>
+                    </div>
+                    <div class="w-full bg-gray-800 rounded-full h-4 border border-cyan-500">
+                        <div id="progress" class="energy-bar h-4 rounded-full transition-all" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-6 text-pink-400" id="question-text">What is the derivative of f(x) = 3x² + 2x - 1?</h3>
+                    <div class="space-y-4" id="answer-options">
+                        <button class="answer-option w-full p-6 text-left bg-gray-800 border-2 border-gray-600 rounded-lg hover:border-cyan-400 hover:bg-gray-700 transition-all text-lg font-semibold" onclick="selectAnswer(this, 'A')">
+                            A) 6x + 2
+                        </button>
+                        <button class="answer-option w-full p-6 text-left bg-gray-800 border-2 border-gray-600 rounded-lg hover:border-cyan-400 hover:bg-gray-700 transition-all text-lg font-semibold" onclick="selectAnswer(this, 'B')">
+                            B) 3x² + 2
+                        </button>
+                        <button class="answer-option w-full p-6 text-left bg-gray-800 border-2 border-gray-600 rounded-lg hover:border-cyan-400 hover:bg-gray-700 transition-all text-lg font-semibold" onclick="selectAnswer(this, 'C')">
+                            C) 6x + 2x
+                        </button>
+                        <button class="answer-option w-full p-6 text-left bg-gray-800 border-2 border-gray-600 rounded-lg hover:border-cyan-400 hover:bg-gray-700 transition-all text-lg font-semibold" onclick="selectAnswer(this, 'D')">
+                            D) 9x + 2
+                        </button>
+                    </div>
+                </div>
+
+                <button id="next-btn" onclick="nextQuestion()" class="bg-purple-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed neon-border" disabled>
+                    NEXT PROBE
+                </button>
+            </div>
+
+            <div id="test-results" class="hidden text-center">
+                <div class="text-8xl mb-8">🎉</div>
+                <h2 class="text-3xl font-bold mb-6 neon-text">NEURAL SCAN COMPLETE!</h2>
+                <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-8 rounded-lg mb-8 neon-border">
+                    <h3 class="text-2xl font-bold mb-4">COMBAT CLASSIFICATION</h3>
+                    <div class="text-4xl font-black">LEVEL 3 - WARRIOR</div>
+                    <div class="text-lg mt-2">💎 +100 gems awarded!</div>
+                </div>
+                <p class="text-xl text-cyan-300 mb-8">Your neural patterns indicate advanced combat readiness. You're cleared for WARRIOR-level engagements!</p>
+                <button onclick="acceptLevel()" class="bg-green-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-green-700 transition-all mr-4 neon-border">
+                    ACCEPT RANK
+                </button>
+                <button onclick="retakeTest()" class="bg-gray-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-700 transition-all neon-border">
+                    RETRY SCAN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Knowledge Base Section -->
+    <div id="topics" class="section hidden max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-5xl font-black neon-text mb-8 text-center">KNOWLEDGE ARSENAL 📚</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Mathematics -->
+            <div class="cyber-card rounded-xl p-8">
+                <div class="text-6xl mb-6 text-center">🔢</div>
+                <h3 class="text-2xl font-bold mb-4 neon-text text-center">MATHEMATICS</h3>
+                <p class="text-cyan-300 mb-6 text-center">Master the language of the universe</p>
+                <button onclick="generateChallenge('math')" class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-cyan-700 transition-all neon-border">
+                    GENERATE CHALLENGE
+                </button>
+                <div id="math-challenge" class="hidden mt-6 p-6 bg-blue-900 bg-opacity-50 rounded-lg border border-blue-400">
+                    <p class="font-bold text-blue-300 mb-3">🤖 AI GENERATED CHALLENGE:</p>
+                    <p class="text-blue-200">"Solve for x: If log₂(x) + log₂(x-3) = 2, what is the value of x?"</p>
+                    <div class="mt-4 text-green-400 font-semibold">💎 Reward: 25-50 gems</div>
+                </div>
+            </div>
+
+            <!-- Physics -->
+            <div class="cyber-card rounded-xl p-8">
+                <div class="text-6xl mb-6 text-center">⚛️</div>
+                <h3 class="text-2xl font-bold mb-4 neon-text text-center">PHYSICS</h3>
+                <p class="text-cyan-300 mb-6 text-center">Harness the forces of reality</p>
+                <button onclick="generateChallenge('physics')" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-lg font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all neon-border">
+                    GENERATE CHALLENGE
+                </button>
+                <div id="physics-challenge" class="hidden mt-6 p-6 bg-purple-900 bg-opacity-50 rounded-lg border border-purple-400">
+                    <p class="font-bold text-purple-300 mb-3">🤖 AI GENERATED CHALLENGE:</p>
+                    <p class="text-purple-200">"A 2kg object is dropped from 10m height. Calculate its velocity just before impact (ignore air resistance)."</p>
+                    <div class="mt-4 text-green-400 font-semibold">💎 Reward: 30-60 gems</div>
+                </div>
+            </div>
+
+            <!-- Chemistry -->
+            <div class="cyber-card rounded-xl p-8">
+                <div class="text-6xl mb-6 text-center">🧪</div>
+                <h3 class="text-2xl font-bold mb-4 neon-text text-center">CHEMISTRY</h3>
+                <p class="text-cyan-300 mb-6 text-center">Command molecular warfare</p>
+                <button onclick="generateChallenge('chemistry')" class="w-full bg-gradient-to-r from-green-600 to-teal-600 text-white py-4 rounded-lg font-bold text-lg hover:from-green-700 hover:to-teal-700 transition-all neon-border">
+                    GENERATE CHALLENGE
+                </button>
+                <div id="chemistry-challenge" class="hidden mt-6 p-6 bg-green-900 bg-opacity-50 rounded-lg border border-green-400">
+                    <p class="font-bold text-green-300 mb-3">🤖 AI GENERATED CHALLENGE:</p>
+                    <p class="text-green-200">"Balance this equation: C₆H₁₂O₆ + O₂ → CO₂ + H₂O. What are the coefficients?"</p>
+                    <div class="mt-4 text-green-400 font-semibold">💎 Reward: 20-45 gems</div>
+                </div>
+            </div>
+
+            <!-- Biology -->
+            <div class="cyber-card rounded-xl p-8">
+                <div class="text-6xl mb-6 text-center">🧬</div>
+                <h3 class="text-2xl font-bold mb-4 neon-text text-center">BIOLOGY</h3>
+                <p class="text-cyan-300 mb-6 text-center">Decode the secrets of life</p>
+                <button onclick="generateChallenge('biology')" class="w-full bg-gradient-to-r from-teal-600 to-green-600 text-white py-4 rounded-lg font-bold text-lg hover:from-teal-700 hover:to-green-700 transition-all neon-border">
+                    GENERATE CHALLENGE
+                </button>
+                <div id="biology-challenge" class="hidden mt-6 p-6 bg-teal-900 bg-opacity-50 rounded-lg border border-teal-400">
+                    <p class="font-bold text-teal-300 mb-3">🤖 AI GENERATED CHALLENGE:</p>
+                    <p class="text-teal-200">"In DNA replication, which enzyme is responsible for unwinding the double helix structure?"</p>
+                    <div class="mt-4 text-green-400 font-semibold">💎 Reward: 25-50 gems</div>
+                </div>
+            </div>
+
+            <!-- Computer Science -->
+            <div class="cyber-card rounded-xl p-8">
+                <div class="text-6xl mb-6 text-center">💻</div>
+                <h3 class="text-2xl font-bold mb-4 neon-text text-center">COMPUTER SCIENCE</h3>
+                <p class="text-cyan-300 mb-6 text-center">Master digital dominance</p>
+                <button onclick="generateChallenge('cs')" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-lg font-bold text-lg hover:from-indigo-700 hover:to-purple-700 transition-all neon-border">
+                    GENERATE CHALLENGE
+                </button>
+                <div id="cs-challenge" class="hidden mt-6 p-6 bg-indigo-900 bg-opacity-50 rounded-lg border border-indigo-400">
+                    <p class="font-bold text-indigo-300 mb-3">🤖 AI GENERATED CHALLENGE:</p>
+                    <p class="text-indigo-200">"What is the time complexity of binary search on a sorted array of n elements?"</p>
+                    <div class="mt-4 text-green-400 font-semibold">💎 Reward: 35-70 gems</div>
+                </div>
+            </div>
+
+            <!-- Engineering -->
+            <div class="cyber-card rounded-xl p-8">
+                <div class="text-6xl mb-6 text-center">⚙️</div>
+                <h3 class="text-2xl font-bold mb-4 neon-text text-center">ENGINEERING</h3>
+                <p class="text-cyan-300 mb-6 text-center">Build the future</p>
+                <button onclick="generateChallenge('engineering')" class="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white py-4 rounded-lg font-bold text-lg hover:from-orange-700 hover:to-red-700 transition-all neon-border">
+                    GENERATE CHALLENGE
+                </button>
+                <div id="engineering-challenge" class="hidden mt-6 p-6 bg-orange-900 bg-opacity-50 rounded-lg border border-orange-400">
+                    <p class="font-bold text-orange-300 mb-3">🤖 AI GENERATED CHALLENGE:</p>
+                    <p class="text-orange-200">"Calculate the maximum load a steel beam (Young's modulus = 200 GPa) can support with given dimensions."</p>
+                    <div class="mt-4 text-green-400 font-semibold">💎 Reward: 40-80 gems</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profile" class="section hidden max-w-4xl mx-auto px-4 py-8">
+        <h1 class="text-5xl font-black neon-text mb-8 text-center">WARRIOR PROFILE 👤</h1>
+        
+        <div class="cyber-card rounded-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold mb-6 neon-text">CHOOSE YOUR BATTLE ICON</h2>
+            <div class="grid grid-cols-4 md:grid-cols-8 gap-4 mb-8">
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🚀')">🚀</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '⚡')">⚡</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🔥')">🔥</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '💀')">💀</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🎯')">🎯</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🌟')">🌟</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '👑')">👑</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🛡️')">🛡️</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-green-500 to-yellow-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🐉')">🐉</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🦅')">🦅</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🌀')">🌀</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-teal-500 to-green-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '⚔️')">⚔️</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🎮')">🎮</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🚁')">🚁</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🎪')">🎪</div>
+                <div class="icon-selector w-16 h-16 bg-gradient-to-br from-yellow-500 to-red-500 rounded-full flex items-center justify-center text-2xl cursor-pointer" onclick="selectIcon(this, '🎨')">🎨</div>
+            </div>
+            
+            <div class="text-center">
+                <h3 class="text-xl font-bold mb-4 text-cyan-300">CURRENT SELECTION</h3>
+                <div id="selected-icon" class="w-24 h-24 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-full flex items-center justify-center text-4xl mx-auto neon-border">
+                    🚀
+                </div>
+            </div>
+        </div>
+
+        <!-- Gem Store -->
+        <div class="cyber-card rounded-xl p-8">
+            <h2 class="text-2xl font-bold mb-6 neon-text">GEM STORE 💎</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-purple-800 to-pink-800 p-6 rounded-lg border border-purple-400">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="text-xl font-bold mb-2">CUSTOM COLORS</h3>
+                        <p class="text-purple-300 mb-4">Unlock unique color schemes</p>
+                        <div class="text-2xl font-bold text-yellow-400 mb-4">500 💎</div>
+                        <button class="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition-all">
+                            PURCHASE
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-blue-800 to-cyan-800 p-6 rounded-lg border border-blue-400">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">⚡</div>
+                        <h3 class="text-xl font-bold mb-2">POWER BOOST</h3>
+                        <p class="text-blue-300 mb-4">2x XP for next 5 battles</p>
+                        <div class="text-2xl font-bold text-yellow-400 mb-4">300 💎</div>
+                        <button class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-all">
+                            PURCHASE
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-800 to-teal-800 p-6 rounded-lg border border-green-400">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">🛡️</div>
+                        <h3 class="text-xl font-bold mb-2">SHIELD</h3>
+                        <p class="text-green-300 mb-4">Protect rank from next loss</p>
+                        <div class="text-2xl font-bold text-yellow-400 mb-4">750 💎</div>
+                        <button class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-all">
+                            PURCHASE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let testTimer;
+        let timeLeft = 60;
+        let selectedAnswer = null;
+        let currentGems = 1247;
+        let selectedProfileIcon = '🚀';
+
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            document.getElementById(sectionName).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-cyan-400', 'text-pink-400', 'text-purple-400', 'text-green-400', 'text-yellow-400');
+            });
+        }
+
+        function findMatch() {
+            const btn = event.target;
+            btn.innerHTML = '🔍 SCANNING FOR ENEMIES...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '⚔️ ENEMY LOCATED! PREPARING BATTLE...';
+                setTimeout(() => {
+                    alert('🎮 BATTLE INITIATED WITH SARAH! DESTROY OR BE DESTROYED!');
+                    btn.innerHTML = 'ENGAGE ENEMY';
+                    btn.disabled = false;
+                }, 2000);
+            }, 3000);
+        }
+
+        function challengePlayer(playerName) {
+            if(confirm(`⚔️ CHALLENGE ${playerName.toUpperCase()} TO MORTAL COMBAT?`)) {
+                alert(`🎯 CHALLENGE ISSUED TO ${playerName.toUpperCase()}! THEY HAVE 5 MINUTES TO ACCEPT OR FACE DISHONOR!`);
+            }
+        }
+
+        function startLevelTest() {
+            document.getElementById('test-intro').classList.add('hidden');
+            document.getElementById('test-question').classList.remove('hidden');
+            startTimer();
+        }
+
+        function startTimer() {
+            timeLeft = 60;
+            testTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+                if (timeLeft <= 10) {
+                    document.getElementById('timer').parentElement.classList.add('warning-flash');
+                }
+                if (timeLeft <= 0) {
+                    clearInterval(testTimer);
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(button, answer) {
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('border-cyan-400', 'bg-cyan-900');
+                opt.classList.add('border-gray-600');
+            });
+            
+            button.classList.remove('border-gray-600');
+            button.classList.add('border-cyan-400', 'bg-cyan-900');
+            
+            selectedAnswer = answer;
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function nextQuestion() {
+            clearInterval(testTimer);
+            document.getElementById('timer').parentElement.classList.remove('warning-flash');
+            currentQuestion++;
+            
+            if (currentQuestion > 10) {
+                showTestResults();
+                return;
+            }
+            
+            const progress = (currentQuestion / 10) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('question-num').textContent = currentQuestion;
+            
+            selectedAnswer = null;
+            document.getElementById('next-btn').disabled = true;
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('border-cyan-400', 'bg-cyan-900');
+                opt.classList.add('border-gray-600');
+            });
+            
+            startTimer();
+        }
+
+        function showTestResults() {
+            document.getElementById('test-question').classList.add('hidden');
+            document.getElementById('test-results').classList.remove('hidden');
+            
+            // Award gems
+            currentGems += 100;
+            document.getElementById('gem-count').textContent = currentGems.toLocaleString();
+        }
+
+        function acceptLevel() {
+            alert('🎉 WARRIOR STATUS CONFIRMED! YOU ARE NOW CLEARED FOR LEVEL 3 COMBAT OPERATIONS!');
+            showSection('dashboard');
+        }
+
+        function retakeTest() {
+            currentQuestion = 1;
+            document.getElementById('test-results').classList.add('hidden');
+            document.getElementById('test-intro').classList.remove('hidden');
+        }
+
+        function generateChallenge(subject) {
+            const challengeDiv = document.getElementById(subject + '-challenge');
+            challengeDiv.classList.remove('hidden');
+            
+            const originalContent = challengeDiv.innerHTML;
+            challengeDiv.innerHTML = '<p class="text-center text-cyan-400 font-bold">🤖 AI NEURAL NETWORK GENERATING CHALLENGE...</p>';
+            
+            setTimeout(() => {
+                challengeDiv.innerHTML = originalContent;
+                challengeDiv.querySelector('p:last-child').textContent = getRandomChallenge(subject);
+                
+                // Award gems for generating challenge
+                const gemReward = Math.floor(Math.random() * 10) + 5;
+                currentGems += gemReward;
+                document.getElementById('gem-count').textContent = currentGems.toLocaleString();
+            }, 2000);
+        }
+
+        function selectIcon(element, icon) {
+            document.querySelectorAll('.icon-selector').forEach(selector => {
+                selector.classList.remove('icon-selected');
+            });
+            
+            element.classList.add('icon-selected');
+            selectedProfileIcon = icon;
+            document.getElementById('selected-icon').textContent = icon;
+        }
+
+        function getRandomChallenge(subject) {
+            const challenges = {
+                math: [
+                    "Solve for x: If log₂(x) + log₂(x-3) = 2, what is the value of x?",
+                    "Find the area under the curve y = x² from x = 0 to x = 3.",
+                    "If sin(θ) = 3/5 and θ is in the first quadrant, find cos(2θ).",
+                    "Calculate the limit: lim(x→∞) (3x² + 2x - 1)/(x² + 5x + 2)",
+                    "Solve the differential equation: dy/dx = 2xy with initial condition y(0) = 1"
+                ],
+                physics: [
+                    "A 2kg object is dropped from 10m height. Calculate its velocity just before impact (ignore air resistance).",
+                    "Calculate the electric field at the center of a square with charges +q at each corner.",
+                    "A wave has frequency 440 Hz and wavelength 0.77m. What is its speed?",
+                    "Find the magnetic force on a 0.5m wire carrying 3A current in a 0.2T magnetic field.",
+                    "Calculate the escape velocity from Earth's surface (g = 9.8 m/s², R = 6.37×10⁶ m)."
+                ],
+                chemistry: [
+                    "Balance this equation: C₆H₁₂O₆ + O₂ → CO₂ + H₂O. What are the coefficients?",
+                    "Calculate the pH of a 0.01 M HCl solution.",
+                    "How many grams of NaCl are needed to make 500mL of 0.2M solution?",
+                    "Determine the oxidation states of all atoms in K₂Cr₂O₇.",
+                    "Calculate the molarity of a solution containing 25g of NaOH in 250mL of solution."
+                ],
+                biology: [
+                    "In DNA replication, which enzyme is responsible for unwinding the double helix structure?",
+                    "Explain the difference between mitosis and meiosis in terms of chromosome number.",
+                    "What is the role of chlorophyll in photosynthesis?",
+                    "Name the four chambers of the human heart and their functions.",
+                    "Describe the process of protein synthesis from DNA to functional protein."
+                ],
+                cs: [
+                    "What is the time complexity of binary search on a sorted array of n elements?",
+                    "Implement a function to reverse a linked list. What's the space complexity?",
+                    "Explain the difference between BFS and DFS graph traversal algorithms.",
+                    "What is the worst-case time complexity of quicksort algorithm?",
+                    "Design a hash table with collision resolution using chaining."
+                ],
+                engineering: [
+                    "Calculate the maximum load a steel beam (Young's modulus = 200 GPa) can support with given dimensions.",
+                    "Design a simple bridge to span 10 meters. What factors must you consider?",
+                    "Calculate the power required to pump water 50 meters vertically at 10 L/s.",
+                    "Determine the stress concentration factor for a circular hole in a tensile specimen.",
+                    "Design a gear system with a 4:1 reduction ratio for a motor application."
+                ]
+            };
+            
+            const subjectChallenges = challenges[subject];
+            return subjectChallenges[Math.floor(Math.random() * subjectChallenges.length)];
+        }
+
+        // User authentication functions
+        async function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            try {
+                const response = await fetch("http://127.0.0.1:8000/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert(`🎉 ${data.message}`);
+                    currentGems = data.gems;
+                    localStorage.setItem('stemArena_currentUser', username); // ✅ add this
+                    document.getElementById('gem-count').textContent = currentGems.toLocaleString();
+                    showSection('dashboard')
+                }
+                else {
+                    alert('❌ ' + data.detail);
+                }
+            } catch (error) {
+                alert('⚠️ Error connecting to server.');
+                console.error(error);
+            }
+        }
+
+        
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('signup-firstname').value;
+            const lastName = document.getElementById('signup-lastname').value;
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const location = document.getElementById('signup-location').value;
+            const grade = document.getElementById('signup-grade').value;
+            const birthday = document.getElementById('signup-birthday').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                alert('❌ PASSWORDS DO NOT MATCH! TRY AGAIN!');
+                return;
+            }
+            
+            if (localStorage.getItem('stemArena_' + username)) {
+                alert('❌ USERNAME ALREADY EXISTS! CHOOSE ANOTHER CODENAME!');
+                return;
+            }
+            
+            // Create user data
+            const userData = {
+                firstName: firstName,
+                lastName: lastName,
+                username: username,
+                email: email,
+                location: location,
+                grade: grade,
+                birthday: birthday,
+                password: password,
+                level: 1,
+                gems: 100,
+                victories: 0,
+                dominationRate: 0,
+                rank: Math.floor(Math.random() * 100) + 50,
+                killStreak: 0,
+                profileIcon: '🚀',
+                joinDate: new Date().toISOString()
+            };
+            
+            try {
+                const response = await fetch("http://127.0.0.1:8000/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userData)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert("Signup failed: " + errorData.detail);
+                    return;
+                }
+                alert("Signup successful! Please log in.");
+                document.getElementById("signup-form").reset();
+            } catch (error) {
+                console.error("Error during signup:", error);
+                alert("Something went wrong during signup.");
+            }
+        }
+        
+        function loadUserData(userData) {
+            // Update dashboard with user data
+            document.querySelector('.w-24.h-24 .text-4xl').textContent = userData.profileIcon;
+            document.querySelector('.text-3xl.font-black.neon-text').textContent = userData.username.toUpperCase();
+            document.querySelector('.text-xl.text-cyan-300.font-semibold').textContent = userData.firstName + ' ' + userData.lastName;
+            document.querySelector('.text-cyan-400').textContent = '🌍 ' + userData.location;
+            
+            // Update profile details
+            const gradeElement = document.querySelector('.text-blue-300').nextElementSibling;
+            gradeElement.textContent = userData.grade + (userData.grade === 'college' ? '' : 'th');
+            
+            const victoriesElement = document.querySelector('.text-green-300').nextElementSibling;
+            victoriesElement.textContent = userData.victories;
+            
+            const levelElement = document.querySelector('.text-purple-300').nextElementSibling;
+            levelElement.textContent = userData.level + '/10';
+            
+            const birthdayElement = document.querySelector('.text-pink-300').nextElementSibling;
+            const birthDate = new Date(userData.birthday);
+            const options = { month: 'long', day: 'numeric', year: 'numeric' };
+            birthdayElement.textContent = birthDate.toLocaleDateString('en-US', options);
+            
+            // Update gems
+            currentGems = userData.gems;
+            document.getElementById('gem-count').textContent = currentGems.toLocaleString();
+            
+            // Update level badge
+            const levelBadge = document.querySelector('.bg-gradient-to-r.from-orange-500.to-red-600');
+            const levelNames = ['ROOKIE', 'CADET', 'WARRIOR', 'CHAMPION', 'ELITE', 'MASTER', 'LEGEND', 'TITAN', 'OVERLORD', 'GOD'];
+            levelBadge.textContent = `LEVEL ${userData.level} - ${levelNames[userData.level - 1] || 'UNKNOWN'}`;
+        }
+        
+        function logout() {
+            localStorage.removeItem('stemArena_currentUser');
+            showSection('login');
+            alert('👋 LOGGED OUT! SEE YOU IN THE ARENA, WARRIOR!');
+        }
+        
+        function checkAuthStatus() {
+            const currentUser = localStorage.getItem('stemArena_currentUser');
+            if (currentUser) {
+                fetch(`http://127.0.0.1:8000/user/${currentUser}`)
+            .then(res => res.json())
+            .then(userData => {
+                loadUserData(userData);
+                showSection('dashboard');
+            })
+            .catch(() => {
+                showSection('login');
+            });
+    } else {
+        showSection('login');
+    }
+        }
+
+        // Initialize authentication check
+        checkAuthStatus();
+        
+        // Add some dynamic effects
+        setInterval(() => {
+            const gemCount = document.getElementById('gem-count');
+            if (Math.random() < 0.1) { // 10% chance every second
+                gemCount.classList.add('gem-sparkle');
+                setTimeout(() => {
+                    gemCount.classList.remove('gem-sparkle');
+                }, 1500);
+            }
+        }, 1000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967d4164f1a8eced',t:'MTc1Mzk2NjU4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
